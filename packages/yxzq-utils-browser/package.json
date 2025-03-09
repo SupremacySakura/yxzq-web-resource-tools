@@ -1,0 +1,48 @@
+{
+  "name": "yxzq-utils-browser",
+  "version": "2.2.0",
+  "main": "dist/dist-cjs/index.js",
+  "umd:main": "dist/dist-umd/index.js",
+  "module": "dist/dist-esm/index.js",
+  "type": "module",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/dist-esm/index.js",
+      "require": "./dist/dist-cjs/index.cjs",
+      "types": "./dist/types/index.d.ts",
+      "umd": "./dist/dist-umd/index.js"
+    }
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && rollup -c"
+  },
+  "keywords": [
+    "yxzq",
+    "yxzq-utils",
+    "js",
+    "utils",
+    "es",
+    "ts",
+    "CommonJS",
+    "browser",
+    "front-end"
+  ],
+  "author": "yxzq",
+  "license": "ISC",
+  "description": "yxzq-utils-browser",
+  "devDependencies": {
+    "@types/axios": "^0.14.4",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.28.1",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "axios": "^1.8.2"
+  }
+}

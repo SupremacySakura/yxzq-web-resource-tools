@@ -1,0 +1,90 @@
+# --------------------------
+# 全局依赖和包管理器相关
+# --------------------------
+# 所有 node_modules 目录（pnpm 使用符号链接，但防止误提交）
+**/node_modules/
+.pnpm-store/          
+
+# --------------------------
+# 构建产物和编译输出
+# --------------------------
+**/dist/             
+**/build/             
+**/out/               
+**/.next/             
+**/.nuxt/             
+**/public/build/      
+
+# --------------------------
+# 开发工具和 IDE
+# --------------------------
+.vscode/              
+.idea/                
+*.suo                 
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# --------------------------
+# 环境变量和敏感数据
+# --------------------------
+.env                 
+.env.local
+.env.development
+.env.test
+.env.production
+*.env.*
+secrets.yml           
+
+# --------------------------
+# 日志和调试文件
+# --------------------------
+*.log                 
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/                 
+debug/                
+
+# --------------------------
+# 测试相关
+# --------------------------
+coverage/             
+.nyc_output/         
+**/__snapshots__/     
+
+# --------------------------
+# 包管理器和构建工具缓存
+# --------------------------
+.cache/               
+.turbo/*               
+.eslintcache          
+.pnp.*                
+.yarn/cache/          
+.yarn/unplugged/     
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# --------------------------
+# 操作系统元数据
+# --------------------------
+.DS_Store             
+Thumbs.db             
+Desktop.ini           
+
+# --------------------------
+# 特殊 Monorepo 配置
+# --------------------------
+# 忽略子项目独立配置文件（如果使用集中式配置）
+# apps/*/tsconfig.json
+# packages/*/jest.config.js
+
+# --------------------------
+# 可选忽略项（根据项目需求启用）
+# --------------------------
+# **/*.css.map         # CSS 源映射文件
+# **/docker-compose.override.yml # 本地 Docker 配置
+# .history/           # VSCode 的 Local History 插件
+# .eslintignore       # 如果使用统一根目录配置
+
