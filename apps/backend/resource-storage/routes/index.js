@@ -70,8 +70,8 @@ router.post('/upload', koaBody({
 // 获取 public 文件夹下所有图片文件的路径
 const publicDir = path.join(__dirname, '../public')
 //获取public下文件
-router.post('/filePath', async (ctx, next) => {
-  const extNameConfig = ctx.request.body.extNameConfig
+router.post('/filePath', async (ctx) => {
+  const { extNameConfig = 'all' } = ctx.request.body
   const files = readFilesInDirectory(publicDir, extNameConfig)
   files.forEach((file, index) => {
     files[index] = convertLocalPathToUrl(ctx, file)

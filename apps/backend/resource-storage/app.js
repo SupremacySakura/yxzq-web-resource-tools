@@ -5,7 +5,7 @@ const static = require('koa-static')
 const compose = require('koa-compose')
 const cors = require('koa2-cors')
 const corsOption = require('./config/cors.config')
-const bodyParser = require('koa-bodyparser')
+const { koaBody } = require('koa-body')
 const { showRequest } = require('./middlewares/index')
 //导入其他中间件
 const path = require('path')
@@ -27,7 +27,9 @@ app.use(compose([showRequest]))
 //跨域处理
 app.use(cors(corsOption))
 //请求处理
-app.use(bodyParser())
+app.use(koaBody({
+  json: true,
+}))
 //挂载静态资源
 app.use(mount('/image', static(path.resolve(__dirname, './public'))))
 //挂载路由

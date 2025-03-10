@@ -94,6 +94,9 @@ const getFilePath = async (config: GetFilePathConfig = {}): Promise<GetFilePathR
     try {
         const response = await fetch(wholeUrl, {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 extNameConfig
             })
@@ -110,5 +113,5 @@ const getFilePath = async (config: GetFilePathConfig = {}): Promise<GetFilePathR
 }
 export {
     uploadResource,
-    getFilePath
+    getFilePath,
 }

@@ -13,7 +13,7 @@ interface UploadResult {
 }
 interface GetFilePathConfig {
     url?: string
-    extNameConfig?: 'all' | 'no' | Array<string>
+    extNameConfig?: 'all' | 'photo' | Array<string>
 }
 interface GetFilePathResult {
     message: string
