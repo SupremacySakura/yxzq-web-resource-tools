@@ -2,6 +2,7 @@
   "name": "@yxzq-web-resource-tools/resource-storage",
   "version": "1.0.0",
   "main": "index.js",
+  "private":"true",
   "scripts": {
     "dev": "nodemon app.js"
   },
