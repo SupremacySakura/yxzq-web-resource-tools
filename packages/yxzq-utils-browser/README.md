@@ -28,22 +28,22 @@
 ### NPM 安装
 
 ```bash
-npm install yxzq-utils-browser
+npm install @yxzq-web-resource-tools/yxzq-utils-browser
 ```
 
 ### 原生 JS 引入
 
 ```html
-<script src="your-path-to-node_modules/yxzq-utils-browser/dist/dist-umd/index.js"></script>
+<script src="your-path-to-node_modules/@yxzq-web-resource-tools/yxzq-utils-browser/dist/dist-umd/index.js"></script>
 ```
 
 ### 框架中使用
 
 ```javascript
 // 全局导入
-import yxzqUtils from 'yxzq-utils-browser'
+import yxzqUtils from '@yxzq-web-resource-tools/yxzq-utils-browser'
 // 按需导入
-import {} from 'yxzq-utils-browser'
+import {} from '@yxzq-web-resource-tools/yxzq-utils-browser'
 ```
 
 ## 模块格式

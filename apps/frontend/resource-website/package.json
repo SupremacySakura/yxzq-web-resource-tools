@@ -1,5 +1,5 @@
 {
-  "name": "resource-website",
+  "name": "@yxzq-web-resource-tools/resource-website",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,7 +11,7 @@
   "dependencies": {
     "vue": "^3.5.13",
     "vue-router": "^4.5.0",
-    "yxzq-utils-browser": "workspace:*"
+    "@yxzq-web-resource-tools/yxzq-utils-browser": "workspace:*"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",

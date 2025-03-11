@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "private":true,
+  "private": true,
   "scripts": {
     "dev": "turbo run dev --parallel",
     "build": "turbo run build"
@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@changesets/cli": "^2.28.1",
     "turbo": "^2.4.4"
   },
   "packageManager": "pnpm@9.14.2"

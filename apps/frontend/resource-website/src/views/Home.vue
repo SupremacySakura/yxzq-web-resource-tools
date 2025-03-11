@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import yxzqUtils from 'yxzq-utils-browser'
+import yxzqUtils from '@yxzq-web-resource-tools/yxzq-utils-browser'
 import { ref, onMounted } from 'vue'
 const fileList = ref<string[]>([])
 const uploadFile = ref<File>()
