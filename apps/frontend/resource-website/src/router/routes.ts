@@ -8,6 +8,14 @@ const routes: Readonly<RouteRecordRaw[]> = [
       {
         path: '/home',
         component: () => import('../views/Home.vue')
+      },
+      {
+        path: '/uploadFile',
+        component: () => import('../views/UploadFile.vue')
+      },
+      {
+        path: '/fileManagement',
+        component: () => import('../views/FileManagement.vue')
       }
     ]
   }
