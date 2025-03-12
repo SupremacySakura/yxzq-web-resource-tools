@@ -7,10 +7,5 @@
   "compilerOptions": {
     // ... 其他配置 ...
     "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "src/*"
-      ]
-    }
   }
 }

@@ -35,7 +35,7 @@ interface UploadConfig {
 const uploadConfig = ref<UploadConfig>({
     folderName: '',
     fileName: '',
-    url: undefined,
+    url: import.meta.env.MYAPP_BASE_URL,
     useDate: 'no',
     ext: ''
 })

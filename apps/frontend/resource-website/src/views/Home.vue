@@ -1,5 +1,8 @@
 <script setup lang="ts">
-
+import { onMounted } from 'vue'
+onMounted(()=>{
+  console.log(import.meta.env.MYAPP_BASE_URL)
+})
 </script>
 
 <template>

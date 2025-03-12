@@ -102,6 +102,7 @@ const handleSearch = () => {
     switch (activeFileType.value) {
         case FileType.ALL:
             yxzqUtils.getFilePath({
+                url: import.meta.env.MYAPP_BASE_URL,
                 extNameConfig: 'all'
             }).then((res) => {
                 filePathList.value = res.files
@@ -109,6 +110,7 @@ const handleSearch = () => {
             break
         case FileType.PHOTO:
             yxzqUtils.getFilePath({
+                url: import.meta.env.MYAPP_BASE_URL,
                 extNameConfig: 'photo'
             }).then((res) => {
                 filePathList.value = res.files
@@ -116,6 +118,7 @@ const handleSearch = () => {
             break
         case FileType.AUTO:
             yxzqUtils.getFilePath({
+                url: import.meta.env.MYAPP_BASE_URL,
                 extNameConfig: autoExtList.value
             }).then((res) => {
                 filePathList.value = res.files
