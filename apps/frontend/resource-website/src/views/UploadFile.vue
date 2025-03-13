@@ -123,6 +123,10 @@ const handleUpload = () => {
     padding: 20px;
     background-color: #f5f7fa;
 
+    @media screen and (max-width: 500px) {
+        padding: 10px;
+    }
+
     section {
         max-width: 600px;
         margin: 0 auto;
@@ -131,15 +135,33 @@ const handleUpload = () => {
         border-radius: 8px;
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 
+        @media screen and (max-width: 500px) {
+            width: 90%;
+            padding: 15px;
+        }
+
         div {
             display: flex;
             align-items: center;
             margin-bottom: 20px;
 
+            @media screen and (max-width: 500px) {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: 15px;
+                height: 60px;
+            }
+
             span {
                 width: 160px;
                 color: #606266;
                 font-size: 14px;
+
+                @media screen and (max-width: 500px) {
+                    width: 100% !important;
+                    margin-bottom: 8px;
+                    font-size: 13px;
+                }
             }
 
             label,
@@ -152,6 +174,10 @@ const handleUpload = () => {
                 border-radius: 4px;
                 color: #606266;
                 transition: border-color 0.2s;
+
+                @media screen and (max-width: 500px) {
+                    width: 100%;
+                }
 
                 &:focus {
                     outline: none;
@@ -183,6 +209,11 @@ const handleUpload = () => {
             font-size: 14px;
             cursor: pointer;
             transition: background-color 0.3s;
+
+            @media screen and (max-width: 500px) {
+                height: 36px;
+                font-size: 13px;
+            }
 
             &:hover {
                 background-color: #66b1ff;

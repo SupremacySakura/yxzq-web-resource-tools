@@ -45,6 +45,7 @@ const handleClick = (path: string) => {
 
     @media screen and (max-width: 500px) {
         width: 30%;
+        min-width: 30%;
         padding: 15px 0;
     }
 
@@ -55,6 +56,7 @@ const handleClick = (path: string) => {
         margin-bottom: 30px;
         font-weight: 600;
         letter-spacing: 1px;
+        word-break: break-all;
     }
 
     ul {

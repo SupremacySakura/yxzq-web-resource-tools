@@ -157,8 +157,8 @@ onMounted(() => {
                     <button class="delete-btn" @click="handleDeleteAutoExt(item)">x</button>
                 </li>
             </ul>
-            <div>
-                <input type="text" v-model="autoExt" />
+            <div class="input-ext">
+                <input type="text" v-model="autoExt" placeholder="请输入后缀,如.jpg"/>
                 <button @click="handleAddAutoExt">添加后缀</button>
             </div>
             <div>
@@ -184,6 +184,7 @@ onMounted(() => {
     flex: 1;
     padding: 20px;
     background-color: #f5f7fa;
+    overflow-y: auto;
 
     header {
         margin-bottom: 24px;
@@ -214,6 +215,11 @@ onMounted(() => {
                 transition: all 0.3s ease;
                 color: #606266;
                 position: relative;
+
+                @media screen and (max-width: 500px) {
+                    min-width: 80px;
+                    flex: 1;
+                }
 
                 .delete-btn {
                     position: absolute;
@@ -257,6 +263,16 @@ onMounted(() => {
             }
         }
 
+        .input-ext {
+            @media screen and (max-width: 500px) {
+                flex-direction: column;
+
+                input {
+                    width: 100%;
+                }
+            }
+        }
+
         div {
             margin-bottom: 16px;
             display: flex;
@@ -285,6 +301,10 @@ onMounted(() => {
                 cursor: pointer;
                 transition: all 0.3s;
 
+                @media screen and (max-width: 500px) {
+                    flex: 1;
+                }
+
                 &:hover {
                     background-color: #66b1ff;
                 }
@@ -311,6 +331,15 @@ onMounted(() => {
                 display: flex;
                 justify-content: space-between;
 
+                @media screen and (max-width: 500px) {
+                    flex-direction: column;
+                }
+
+                span {
+                    word-wrap: wrap;
+                    word-break: break-all;
+                }
+
                 &:last-child {
                     border-bottom: none;
                 }
@@ -327,6 +356,13 @@ onMounted(() => {
                 div {
                     display: flex;
                     gap: 10px;
+                    margin-left: 10px;
+
+                    @media screen and (max-width: 500px) {
+                        flex-wrap: wrap;
+                        margin-top: 10px;
+                        margin-left: 0px;
+                    }
 
                     .btn {
                         padding: 6px 12px;
@@ -341,6 +377,11 @@ onMounted(() => {
 
                         &:hover {
                             transform: translateX(0) scale(1.05);
+                        }
+
+                        @media screen and (max-width: 500px) {
+                            flex: 1;
+                            transform: translateX(0);
                         }
                     }
 
