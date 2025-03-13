@@ -16,6 +16,10 @@ const routes: Readonly<RouteRecordRaw[]> = [
       {
         path: '/fileManagement',
         component: () => import('../views/FileManagement.vue')
+      },
+      {
+        path:'/imgPreview',
+        component:()=>import('../views/ImgPreview.vue')
       }
     ]
   }

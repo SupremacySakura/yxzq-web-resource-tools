@@ -16,6 +16,11 @@ const sideBarList = [
         id: 2,
         name: "文件管理",
         path: "/fileManagement"
+    },
+    {
+        id: 3,
+        name:"图片预览",
+        path: "/imgPreview"
     }
 ]
 const handleClick = (path: string) => {
