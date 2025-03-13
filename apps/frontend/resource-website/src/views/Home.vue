@@ -30,6 +30,11 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   gap: 24px;
+
+  @media screen and (max-width: 500px) {
+    padding: 16px;
+    gap: 16px;
+  }
 }
 
 .welcome-section {
@@ -41,11 +46,20 @@ onMounted(() => {
     color: #2c3e50;
     margin-bottom: 12px;
     font-weight: 600;
+
+    @media screen and (max-width: 500px) {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
   }
 
   .subtitle {
     font-size: 18px;
     color: #606f7b;
+
+    @media screen and (max-width: 500px) {
+      font-size: 16px;
+    }
   }
 }
 
@@ -67,15 +81,29 @@ onMounted(() => {
   .card-content {
     padding: 24px;
 
+    @media screen and (max-width: 500px) {
+      padding: 16px;
+    }
+
     h2 {
       font-size: 24px;
       color: #2c3e50;
       margin-bottom: 16px;
+
+      @media screen and (max-width: 500px) {
+        font-size: 20px;
+        margin-bottom: 12px;
+      }
     }
 
     p {
       color: #606f7b;
       line-height: 1.6;
+
+      @media screen and (max-width: 500px) {
+        font-size: 14px;
+        line-height: 1.5;
+      }
     }
   }
 }

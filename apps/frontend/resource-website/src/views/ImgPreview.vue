@@ -2,6 +2,8 @@
 import { ref, onMounted } from 'vue'
 import yxzqUtils from '@yxzq-web-resource-tools/yxzq-utils-browser'
 import { ElMessage } from 'element-plus'
+import type { ImageProps } from 'element-plus'
+const fit = 'scale-down' as ImageProps['fit']
 //图片列表
 const imgList = ref<string[]>([])
 //预览启用
@@ -49,7 +51,7 @@ onMounted(() => {
         <ul class="img-list">
             <li v-for="(item, index) of imgList" :key="item" class="img-item">
                 <div class="img-item-img">
-                    <el-image :src="item" alt="" />
+                    <el-image :src="item" alt="" :fit="fit" style="width: 95%; height: 95%;"/>
                 </div>
                 <div class="img-item-control">
                     <button @click="openPreview(index)">预览</button>
@@ -67,7 +69,7 @@ onMounted(() => {
     flex: 1;
     padding: 32px;
     background-color: #f5f7fa;
-
+    overflow-y: auto;
     .img-list {
         display: flex;
         flex-wrap: wrap;
@@ -95,13 +97,6 @@ onMounted(() => {
                 align-items: center;
                 justify-content: center;
                 background-color: #f5f7fa;
-
-                img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: contain;
-                    transition: transform 0.3s ease;
-                }
             }
 
             .img-item-control {
@@ -122,6 +117,34 @@ onMounted(() => {
 
                     &:hover {
                         background-color: #66b1ff;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .container {
+        padding: 16px;
+
+        .img-list {
+            gap: 12px;
+
+            .img-item {
+                width: 100%;
+
+                .img-item-img {
+                    height: 160px;
+                }
+
+                .img-item-control {
+                    padding: 10px;
+                    gap: 8px;
+
+                    button {
+                        padding: 8px 12px;
+                        font-size: 14px;
                     }
                 }
             }
