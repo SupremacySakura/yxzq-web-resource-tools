@@ -20,10 +20,30 @@ const initIndex = ref(0)
  */
 const copyToClipboard = async (url: string) => {
     try {
-        await navigator.clipboard.writeText(url)
+        // 使用兼容方案
+        const textArea = document.createElement('textarea')
+        textArea.value = url
+
+        // 避免屏幕闪烁
+        textArea.style.position = 'fixed'
+        textArea.style.left = '-9999px'
+        textArea.style.top = '-9999px'
+
+        document.body.appendChild(textArea)
+        textArea.focus()
+        textArea.select()
+
+        // 执行复制命令
+        const successful = document.execCommand('copy')
+        document.body.removeChild(textArea)
+
+        if (!successful) {
+            throw new Error('使用旧版复制方法失败')
+        }
+
         ElMessage.success('复制成功')
     } catch (e) {
-        ElMessage.error(`复制失败${e}`)
+        ElMessage.error(`复制失败：${e}`)
     }
 }
 /**
