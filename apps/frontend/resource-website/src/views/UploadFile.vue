@@ -89,7 +89,9 @@ const handleUpload = () => {
  * @returns {Promise<void>}
  */
 const uploadFilesStructure = () => {
-    yxzqUtils.getFilesStructure().then((res) => {
+    yxzqUtils.getFilesStructure({
+        url: import.meta.env.MYAPP_BASE_URL
+    }).then((res) => {
         filesStructure.value = res.filesStructure
     })
 }
