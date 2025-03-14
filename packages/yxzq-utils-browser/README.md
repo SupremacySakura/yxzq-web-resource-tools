@@ -287,7 +287,7 @@ getFilePath([config]: GetFilePathConfig)
 
 - `config`: 配置对象，用于自定义请求行为
   - `url`: 请求的目标 URL，默认值为 `'http://localhost:3100'`
-  - `extNameConfig`: 文件扩展名配置，默认值为 `'all'`，可选值 `'photo'`，也可传入后缀名数组，如 `['.html', '.jpg']`
+  - `extNameConfig`: 文件扩展名配置，默认值为 `'all'`，可选值 `'photo'`，也可传入后缀名数组，如 `['html', 'jpg']`
 
 #### 返回值
 
@@ -302,7 +302,7 @@ getFilePath([config]: GetFilePathConfig)
 ```typescript
 yxzqUtils.getFilePath({
      url: 'http://localhost:3100', // 服务器地址，默认值为 'http://localhost:3100'
-     extNameConfig: 'all', // 查询文件后缀名参数，默认值为 'all'，可选值 'photo'，也可传入后缀名数组，如 ['.html', '.jpg']
+     extNameConfig: 'all', // 查询文件后缀名参数，默认值为 'all'，可选值 'photo'，也可传入后缀名数组，如 ['html', 'jpg']
 }).then(res => {
     console.log(res)
 })

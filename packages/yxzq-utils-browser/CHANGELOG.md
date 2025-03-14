@@ -1,5 +1,11 @@
 # @yxzq-web-resource-tools/yxzq-utils-browser
 
+## 1.1.1
+
+### Patch Changes
+
+- 修改 getFilePath 方法接收的后缀格式
+
 ## 1.1.0
 
 ### Minor Changes

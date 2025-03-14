@@ -158,7 +158,7 @@ onMounted(() => {
                 </li>
             </ul>
             <div class="input-ext">
-                <input type="text" v-model="autoExt" placeholder="请输入后缀,如.jpg"/>
+                <input type="text" v-model="autoExt" placeholder="请输入后缀,如jpg"/>
                 <button @click="handleAddAutoExt">添加后缀</button>
             </div>
             <div>

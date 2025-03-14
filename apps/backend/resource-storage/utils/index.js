@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 
 // 判断文件是否是图片文件，支持的扩展名可以根据需求添加
-const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp', '.svg']
+const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg']
 
 /**
  * 递归读取指定目录下的文件
@@ -43,12 +43,12 @@ function readFilesInDirectory(dirPath, extNameConfig = 'all') {
             if (extNameConfig === 'all') {
                 result.push(filePath)
             } else if (extNameConfig === 'photo') {
-                const extname = path.extname(file).toLowerCase()
+                const extname = path.extname(file).toLowerCase().replace('.', '')
                 if (imageExtensions.includes(extname)) {
                     result.push(filePath)  // 如果是图片，加入结果数组
                 }
             } else if (extNameConfig instanceof Array) {
-                const extname = path.extname(file).toLowerCase()
+                const extname = path.extname(file).toLowerCase().replace('.', '')
                 if (extNameConfig.includes(extname)) {
                     result.push(filePath)  // 自定义后缀名
                 }

@@ -74,7 +74,7 @@ const uploadResource = async (file: File | Blob, config: UploadConfig = {}): Pro
  * @async
  * @param {GetFilePathConfig} [config={}] - 配置对象，用于自定义请求行为。
  * @param {string} [config.url='http://localhost:3100'] - 请求的目标URL。默认值为'http://localhost:3100'。
- * @param {string | string[]} [config.extNameConfig='all'] - 文件扩展名配置。默认值为'all',可选值'photo',也可传入后缀名数组,如['.html','.jpg']。
+ * @param {string | string[]} [config.extNameConfig='all'] - 文件扩展名配置。默认值为'all',可选值'photo',也可传入后缀名数组,如['html','jpg']。
  *
  * @returns {Promise<GetFilePathResult>} 返回一个Promise，解析为包含获取结果的对象：
  * - `message`: 描述信息。
