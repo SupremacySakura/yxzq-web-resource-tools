@@ -3,7 +3,7 @@ const Router = require('@koa/router')
 const path = require('path')
 const fs = require('fs')
 const { koaBody } = require('koa-body')
-const { readFilesInDirectory, convertLocalPathToUrl } = require('../utils/index.js')
+const { readFilesInDirectory, convertLocalPathToUrl, readFilesStructure } = require('../utils/index.js')
 //创建路由实例
 const router = new Router()
 const tempDir = path.join(__dirname, '.././temp')
@@ -79,8 +79,16 @@ router.post('/filePath', async (ctx) => {
   ctx.body = {
     message: 'Query successful!',
     files: files,
-    code: 500,
+    code: 200,
   }
 })
-
+//获取public下文件结构
+router.get('/fileStructure', async (ctx) => {
+  const filesStructure = readFilesStructure(publicDir)
+  ctx.body = {
+    message: 'Query successful!',
+    filesStructure: filesStructure,
+    code: 200,
+  }
+})
 module.exports = router

@@ -1,5 +1,5 @@
 import { checkIfInstanceOf } from "../utils/index"
-import type { UploadConfig, UploadResult, GetFilePathConfig, GetFilePathResult } from "./type.ts"
+import type { UploadConfig, UploadResult, GetFilePathConfig, GetFilePathResult, fileStructure, GetFilesStructureConfig, GetFilesStructureResult } from "./type.ts"
 /**
  * 异步上传文件到指定URL。（此工具需配合作者其他工具resource-storage使用）
  *
@@ -111,7 +111,56 @@ const getFilePath = async (config: GetFilePathConfig = {}): Promise<GetFilePathR
         }
     }
 }
+/**
+ * 异步获取文件结构。（此工具需配合作者其他工具resource-storage使用）
+ *
+ * @async
+ * @param {GetFilesStructureConfig} [config={}] - 配置对象，用于自定义请求行为
+ * @param {string} [config.url='http://localhost:3100'] - 请求的目标URL。默认值为'http://localhost:3100'
+ *
+ * @returns {Promise<GetFilesStructureResult>} 返回一个Promise，解析为包含获取结果的对象：
+ * - `message`: 请求结果描述信息
+ * - `filesStructure`: 文件结构数组，包含文件和文件夹的层级结构
+ *   - 文件夹结构: { type: 'folder', name: string, children: Array }
+ *   - 文件结构: { type: 'file', name: string }
+ * - `code`: HTTP状态码（200表示成功，400表示失败）
+ * - `err`: 错误信息对象（请求失败时返回）
+ *
+ * @throws {Error} 如果在请求过程中发生网络错误或其他异常
+ * 
+ * @example
+ * const result = await getFilesStructure();
+ * // 成功返回示例:
+ * // {
+ * //   message: 'success',
+ * //   filesStructure: [
+ * //     { type: 'folder', name: 'images', children: [
+ * //       { type: 'file', name: 'photo.jpg' }
+ * //     ]},
+ * //     { type: 'file', name: 'document.txt' }
+ * //   ],
+ * //   code: 200
+ * // }
+ */
+const getFilesStructure = async (config: GetFilesStructureConfig = {}): Promise<GetFilesStructureResult> => {
+    const {
+        url = 'http://localhost:3100',
+    } = config
+    const wholeUrl = url + '/fileStructure'
+    try {
+        const response = await fetch(wholeUrl)
+        return response.json()
+    } catch (err) {
+        return {
+            message: 'An error occurred during the request',
+            code: 400,
+            err: err,
+            filesStructure: [],
+        }
+    }
+}
 export {
     uploadResource,
     getFilePath,
+    getFilesStructure,
 }

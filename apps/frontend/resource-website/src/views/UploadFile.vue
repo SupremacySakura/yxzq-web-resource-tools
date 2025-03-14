@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import yxzqUtils from '@yxzq-web-resource-tools/yxzq-utils-browser'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { ElMessage } from 'element-plus'
+const filesStructure = ref<any>()
 /**
  * 上传文件对象引用
  * @type {Ref<File | undefined>}
@@ -49,7 +50,9 @@ const handleChange = (e: any) => {
     // 获取文件后缀名并自动填充
     const fileName = uploadFile.value?.name || ''
     const ext = fileName.split('.').pop() || ''
+    const fileNameWithoutExt = fileName.replace(`.${ext}`, '')
     uploadConfig.value.ext = ext
+    uploadConfig.value.fileName = fileNameWithoutExt
 }
 /**
  * 处理文件上传
@@ -65,6 +68,7 @@ const handleUpload = () => {
     try {
         yxzqUtils.uploadResource(uploadFile.value, uploadConfig.value).then((res) => {
             ElMessage.success(`${res.message}地址为${res.filePath}`)
+            uploadFilesStructure()
         })
     } catch (e) {
         ElMessage.error(`上传失败：${e}`)
@@ -78,37 +82,59 @@ const handleUpload = () => {
             ext: ''
         }
     }
+}/**
+ * 获取并更新文件结构
+ * @description 调用 yxzqUtils.getFilesStructure 获取文件结构，并更新 filesStructure 的值
+ * @async
+ * @returns {Promise<void>}
+ */
+const uploadFilesStructure = () => {
+    yxzqUtils.getFilesStructure().then((res) => {
+        filesStructure.value = res.filesStructure
+    })
 }
+onMounted(() => {
+    uploadFilesStructure()
+})
 </script>
 
 <template>
     <div class="container">
+        <section class="files-structure">
+            <div v-for="item of filesStructure" :key="item" class="file-folder">
+                <span>{{ item.type === 'folder' ? "📁" + item.name : "📄" + item.name }}</span>
+                <div class="file-list">
+                    <div v-for="subItem of item.children" :key="subItem">{{ subItem.type === 'folder' ? "📁"
+                + subItem.name : "📄" + subItem.name }}</div>
+                </div>
+            </div>
+        </section>
         <section>
-            <div>
+            <div class="upload-file">
                 <span class="required">文件</span>
                 <label for="file">{{ uploadFile ? uploadFile.name : "click here to add file" }}</label>
                 <input type="file" @change="handleChange" id="file">
             </div>
-            <div>
+            <div class="upload-file">
                 <span>文件夹名</span>
                 <input type="text" v-model="uploadConfig.folderName" placeholder="默认值为default,请勿使用中文">
             </div>
-            <div>
+            <div class="upload-file">
                 <span>文件名</span>
                 <input type="text" v-model="uploadConfig.fileName" placeholder="默认值为defaul_name,请勿使用中文">
             </div>
-            <div>
+            <div class="upload-file">
                 <span>请求地址</span>
                 <input type="text" v-model="uploadConfig.url" placeholder="默认值为http://localhost:3100">
             </div>
-            <div>
+            <div class="upload-file">
                 <span>是否使用日期作为文件名</span>
                 <select name="" id="" v-model="uploadConfig.useDate">
                     <option value="yes">是</option>
                     <option value="no">否</option>
                 </select>
             </div>
-            <div>
+            <div class="upload-file">
                 <span>文件后缀</span>
                 <input type="text" placeholder="默认值为jpg" v-model="uploadConfig.ext">
             </div>
@@ -122,11 +148,15 @@ const handleUpload = () => {
     flex: 1;
     padding: 20px;
     background-color: #f5f7fa;
+    overflow-y: auto;
 
     @media screen and (max-width: 500px) {
         padding: 10px;
     }
-
+    .files-structure{
+        max-height: 600px;
+        overflow-y: auto;
+    }
     section {
         max-width: 600px;
         margin: 0 auto;
@@ -134,13 +164,62 @@ const handleUpload = () => {
         background-color: #fff;
         border-radius: 8px;
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
 
         @media screen and (max-width: 500px) {
             width: 90%;
             padding: 15px;
         }
 
-        div {
+        .file-folder {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            padding: 8px;
+            border: 1px solid #e4e7ed;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            transition: all 0.3s;
+            max-height: 200px;
+            overflow-y: auto;
+            &:hover {
+                box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+                border-color: #c6e2ff;
+            }
+
+            >span {
+                font-size: 15px;
+                font-weight: 500;
+                color: #303133;
+                margin-bottom: 8px;
+                display: flex;
+                align-items: center;
+            }
+
+            .file-list {
+                display: flex;
+                flex-direction: column;
+                padding-left: 24px;
+                align-items: start;
+                word-break: break-all;
+                >div {
+                    font-size: 14px;
+                    color: #606266;
+                    padding: 4px 0;
+                    display: flex;
+                    align-items: center;
+                    transition: all 0.2s;
+
+                    &:hover {
+                        color: #409eff;
+                        background-color: #f5f7fa;
+                    }
+                }
+            }
+        }
+
+        .upload-file {
             display: flex;
             align-items: center;
             margin-bottom: 20px;

@@ -21,9 +21,26 @@ interface GetFilePathResult {
     code: number
     err?: any
 }
+interface fileStructure {
+    type:'file' | 'folder'
+    name: string
+    children?: Array<fileStructure>
+}
+interface GetFilesStructureConfig {
+    url?: string
+}
+interface GetFilesStructureResult {
+    message: string
+    filesStructure: Array<fileStructure>
+    code: number
+    err?: any
+}
 export {
     UploadConfig,
     UploadResult,
     GetFilePathConfig,
-    GetFilePathResult
+    GetFilePathResult,
+    fileStructure,
+    GetFilesStructureConfig,
+    GetFilesStructureResult
 }

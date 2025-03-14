@@ -104,9 +104,50 @@ function convertLocalPathToUrl(ctx, localPath) {
     const baseUrl = getServerBase(ctx)
     return `${baseUrl}/image/${match[1]}`
 }
+/**
+ * 递归读取目录结构
+ * 
+ * @param {string} dirPath - 要读取的目录路径
+ * @returns {Array<Object>} 目录结构数组
+ *   - 文件夹对象结构: { type: 'folder', name: string, children: Array<Object> }
+ *   - 文件对象结构: { type: 'file', name: string }
+ * 
+ * @example
+ * // 返回示例
+ * readFilesStructure('./public')
+ * // 返回:
+ * // [
+ * //   { type: 'folder', name: 'images', children: [
+ * //     { type: 'file', name: 'test.jpg' }
+ * //   ]},
+ * //   { type: 'file', name: 'index.html' }
+ * // ]
+ */
+function readFilesStructure(dirPath){
+    let res = []
+    const files = fs.readdirSync(dirPath)
+    files.forEach((file) => {
+        const filePath = path.join(dirPath, file)
+        const stats = fs.statSync(filePath)
+        if (stats.isDirectory()) {
+            res.push({
+                type: 'folder',
+                name: file,
+                children: readFilesStructure(filePath)
+            })
+        } else if (stats.isFile()) {
+            res.push({
+                type: 'file',
+                name: file
+            })
+        }
+    })
+    return res
+}
 module.exports = {
     readFilesInDirectory,
     getServerBase,
-    convertLocalPathToUrl
+    convertLocalPathToUrl,
+    readFilesStructure,
 }
 

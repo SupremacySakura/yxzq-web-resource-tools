@@ -16,6 +16,7 @@
   - [搭配工具](#搭配工具)
   - [uploadResource](#uploadresource)
   - [getFilePath](#getfilepath)
+  - [getFilesStructure](#getfilesstructure)
 - [其他](#其他)
   - [后端工具](#后端工具)
 
@@ -303,6 +304,32 @@ yxzqUtils.getFilePath({
      url: 'http://localhost:3100', // 服务器地址，默认值为 'http://localhost:3100'
      extNameConfig: 'all', // 查询文件后缀名参数，默认值为 'all'，可选值 'photo'，也可传入后缀名数组，如 ['.html', '.jpg']
 }).then(res => {
+    console.log(res)
+})
+```
+
+### getFilesStructure
+异步获取文件目录结构。（此工具需配合作者其他工具 `resource-storage` 使用）
+
+```typescript
+getFilesStructure([config]: GetFilesStructureConfig)
+```
+
+#### 参数
+- `config`: 配置对象，用于自定义请求行为
+  - `url`: 请求的目标 URL，默认值为 `'- `config`: 配置对象，用于自定义请求行为
+
+#### 返回值
+- `Promise<GetFilesStructureResult>`: 返回一个 Promise，解析为包含获取结果的对象：
+  - `message`: 描述信息
+  - `filesStructure`: 包含文件路径的数组（成功时）或空数组（失败时）
+  - `code`: HTTP 状态码或错误代码
+  - `err`: 错误信息（如果有）
+
+#### 例子
+
+```typescript
+yxzqUtils.getFilesStructure().then(res => {
     console.log(res)
 })
 ```
