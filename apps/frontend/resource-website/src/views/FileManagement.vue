@@ -175,7 +175,7 @@ onMounted(() => {
                     </div>
                 </li>
             </ul>
-            <div class="empty">文件为空</div>
+            <div class="empty" v-if="!filePathList.length">文件为空</div>
         </section>
     </div>
 </template>

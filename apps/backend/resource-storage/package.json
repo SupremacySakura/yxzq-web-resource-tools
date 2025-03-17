@@ -2,9 +2,13 @@
   "name": "@yxzq-web-resource-tools/resource-storage",
   "version": "1.0.0",
   "main": "index.js",
-  "private":"true",
+  "private": "true",
+  "type": "commonjs",
   "scripts": {
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "clean": "rimraf dist",
+    "build": "npm run clean && rollup -c",
+    "preview": "node dist/app.js"
   },
   "keywords": [],
   "author": "",
@@ -12,13 +16,20 @@
   "description": "",
   "dependencies": {
     "@koa/router": "^13.1.0",
+    "@yxzq-web-resource-tools/yxzq-utils-node": "workspace:*",
     "koa": "^2.15.3",
     "koa-body": "^6.0.1",
     "koa-bodyparser": "^4.4.1",
     "koa-compose": "^4.1.0",
     "koa-mount": "^4.0.0",
     "koa-static": "^5.0.0",
-    "koa2-cors": "^2.0.6",
-    "@yxzq-web-resource-tools/yxzq-utils-node": "workspace:*"
+    "koa2-cors": "^2.0.6"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.28.1"
   }
 }

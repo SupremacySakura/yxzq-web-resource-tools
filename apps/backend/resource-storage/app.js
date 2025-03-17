@@ -1,7 +1,7 @@
 //导入koa相关中间件
 const koa = require('koa')
 const mount = require('koa-mount')
-const static = require('koa-static')
+const koaStatic = require('koa-static')
 const compose = require('koa-compose')
 const cors = require('koa2-cors')
 const corsOption = require('./config/cors.config')
@@ -31,11 +31,11 @@ app.use(koaBody({
   json: true,
 }))
 //挂载静态资源
-app.use(mount('/image', static(path.resolve(__dirname, './public'))))
+app.use(mount('/resource', koaStatic(path.resolve(__dirname, './public'))))
 //挂载路由
 app.use(mount('/', indexRouter.routes())).use(indexRouter.allowedMethods())
 //监听端口
 app.listen(3100, () => {
   console.log('server is running at http://localhost:3100')
-  console.log('image is running at http://loacalhost:3100/image')
+  console.log('image is running at http://loacalhost:3100/resource')
 })

@@ -88,12 +88,12 @@ function getServerBase(ctx) {
  * 
  * @example
  * // Windows 路径
- * convertLocalPathToUrl(ctx, 'D:\\project\\public\\images\\test.jpg')
- * // 返回: 'http://localhost:3000/image/images/test.jpg'
+ * convertLocalPathToUrl(ctx, 'D:\\project\\public\\resource\\test.jpg')
+ * // 返回: 'http://localhost:3000/resource/test.jpg'
  * 
  * // Unix 路径
- * convertLocalPathToUrl(ctx, '/usr/local/public/images/test.jpg')
- * // 返回: 'http://localhost:3000/image/images/test.jpg'
+ * convertLocalPathToUrl(ctx, '/usr/local/public/resource/test.jpg')
+ * // 返回: 'http://localhost:3000/resource/test.jpg'
  */
 function convertLocalPathToUrl(ctx, localPath) {
     const regex = /\/public\/([a-zA-Z0-9_\-/.]+)/
@@ -102,7 +102,7 @@ function convertLocalPathToUrl(ctx, localPath) {
     if (!match) return localPath // 非目标路径直接返回
 
     const baseUrl = getServerBase(ctx)
-    return `${baseUrl}/image/${match[1]}`
+    return `${baseUrl}/resource/${match[1]}`
 }
 /**
  * 递归读取目录结构
