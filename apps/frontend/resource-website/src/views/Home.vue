@@ -31,7 +31,7 @@ onMounted(() => {
   flex-direction: column;
   gap: 24px;
 
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: @--first-change-width) {
     padding: 16px;
     gap: 16px;
   }
@@ -47,7 +47,7 @@ onMounted(() => {
     margin-bottom: 12px;
     font-weight: 600;
 
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: @--first-change-width) {
       font-size: 24px;
       margin-bottom: 8px;
     }
@@ -57,7 +57,7 @@ onMounted(() => {
     font-size: 18px;
     color: #606f7b;
 
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: @--first-change-width) {
       font-size: 16px;
     }
   }
@@ -81,7 +81,7 @@ onMounted(() => {
   .card-content {
     padding: 24px;
 
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: @--first-change-width) {
       padding: 16px;
     }
 
@@ -90,7 +90,7 @@ onMounted(() => {
       color: #2c3e50;
       margin-bottom: 16px;
 
-      @media screen and (max-width: 500px) {
+      @media screen and (max-width:@--first-change-width) {
         font-size: 20px;
         margin-bottom: 12px;
       }
@@ -100,7 +100,7 @@ onMounted(() => {
       color: #606f7b;
       line-height: 1.6;
 
-      @media screen and (max-width: 500px) {
+      @media screen and (max-width: @--first-change-width) {
         font-size: 14px;
         line-height: 1.5;
       }

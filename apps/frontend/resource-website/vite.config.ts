@@ -14,5 +14,12 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
     }),
   ],
-  envPrefix: 'MYAPP_'
+  envPrefix: 'MYAPP_',
+  css:{
+    preprocessorOptions:{
+      less:{
+        additionalData:`@import "./src/styles/variable.less";`
+      }
+    }
+  }
 })

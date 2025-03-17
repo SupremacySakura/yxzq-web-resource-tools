@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import yxzqUtils from '@yxzq-web-resource-tools/yxzq-utils-browser'
 import { onMounted, ref } from 'vue'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElLoading } from 'element-plus'
 const filesStructure = ref<any>()
 /**
  * 上传文件对象引用
@@ -55,6 +55,15 @@ const handleChange = (e: any) => {
     uploadConfig.value.fileName = fileNameWithoutExt
 }
 /**
+ * 加载选项
+ * @type {ElLoadingOptions}
+ */
+const loadingOption = {
+    lock: true,
+    text: '上传中...',
+    background: 'rgba(0, 0, 0, 0.7)'
+}
+/**
  * 处理文件上传
  * @description 上传文件并处理响应结果
  * @throws {Error} 上传失败时抛出错误
@@ -66,9 +75,12 @@ const handleUpload = () => {
         return
     }
     try {
+        const loadingInstance = ElLoading.service(loadingOption)
         yxzqUtils.uploadResource(uploadFile.value, uploadConfig.value).then((res) => {
             ElMessage.success(`${res.message}地址为${res.filePath}`)
             uploadFilesStructure()
+        }).finally(()=>{
+            loadingInstance.close()
         })
     } catch (e) {
         ElMessage.error(`上传失败：${e}`)
@@ -103,15 +115,16 @@ onMounted(() => {
 <template>
     <div class="container">
         <section class="files-structure">
+            <h2 class="title">仓库文件</h2>
             <div v-for="item of filesStructure" :key="item" class="file-folder">
                 <span>{{ item.type === 'folder' ? "📁" + item.name : "📄" + item.name }}</span>
                 <div class="file-list">
                     <div v-for="subItem of item.children" :key="subItem">{{ subItem.type === 'folder' ? "📁"
-                + subItem.name : "📄" + subItem.name }}</div>
+                        + subItem.name : "📄" + subItem.name }}</div>
                 </div>
             </div>
         </section>
-        <section>
+        <section class="upload-file-section">
             <div class="upload-file">
                 <span class="required">文件</span>
                 <label for="file">{{ uploadFile ? uploadFile.name : "click here to add file" }}</label>
@@ -152,25 +165,17 @@ onMounted(() => {
     background-color: #f5f7fa;
     overflow-y: auto;
 
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: @--first-change-width) {
         padding: 10px;
     }
-    .files-structure{
-        max-height: 600px;
-        overflow-y: auto;
-    }
-    section {
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 30px;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-        margin-bottom: 10px;
 
-        @media screen and (max-width: 500px) {
-            width: 90%;
-            padding: 15px;
+    .files-structure {
+        max-height: 40vh;
+        overflow-y: auto;
+
+        .title {
+            text-align: center;
+            margin-bottom: 5px;
         }
 
         .file-folder {
@@ -184,7 +189,8 @@ onMounted(() => {
             margin-bottom: 12px;
             transition: all 0.3s;
             max-height: 200px;
-            overflow-y: auto;
+
+
             &:hover {
                 box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
                 border-color: #c6e2ff;
@@ -205,6 +211,8 @@ onMounted(() => {
                 padding-left: 24px;
                 align-items: start;
                 word-break: break-all;
+                overflow-y: auto;
+
                 >div {
                     font-size: 14px;
                     color: #606266;
@@ -220,13 +228,28 @@ onMounted(() => {
                 }
             }
         }
+    }
+
+    section {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
+
+        @media screen and (max-width: @--first-change-width) {
+            width: 90%;
+            padding: 15px;
+        }
 
         .upload-file {
             display: flex;
             align-items: center;
             margin-bottom: 20px;
 
-            @media screen and (max-width: 500px) {
+            @media screen and (max-width:@--first-change-width) {
                 flex-direction: column;
                 align-items: flex-start;
                 margin-bottom: 15px;
@@ -238,7 +261,7 @@ onMounted(() => {
                 color: #606266;
                 font-size: 14px;
 
-                @media screen and (max-width: 500px) {
+                @media screen and (max-width: @--first-change-width) {
                     width: 100% !important;
                     margin-bottom: 8px;
                     font-size: 13px;
@@ -256,8 +279,9 @@ onMounted(() => {
                 color: #606266;
                 transition: border-color 0.2s;
 
-                @media screen and (max-width: 500px) {
+                @media screen and (max-width:@--first-change-width) {
                     width: 100%;
+                    font-size: 12px;
                 }
 
                 &:focus {
@@ -273,6 +297,14 @@ onMounted(() => {
             label {
                 cursor: pointer;
                 line-height: 36px;
+                overflow-x: auto;
+                overflow-y: hidden;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
             }
 
             input[type="file"] {
@@ -291,7 +323,7 @@ onMounted(() => {
             cursor: pointer;
             transition: background-color 0.3s;
 
-            @media screen and (max-width: 500px) {
+            @media screen and (max-width: @--first-change-width) {
                 height: 36px;
                 font-size: 13px;
             }

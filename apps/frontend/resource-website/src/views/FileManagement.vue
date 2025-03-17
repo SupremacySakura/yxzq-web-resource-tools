@@ -149,7 +149,7 @@ onMounted(() => {
             <ul>
                 <li v-for="item of fileTypeList" :key="item.label" :class="{ active: activeFileType === item.value }"
                     @click="handleChangeFileType(item.value)">{{
-                    item.label }}</li>
+                        item.label }}</li>
             </ul>
             <ul>
                 <li v-for="item of autoExtList" :key="item" :class="{ active: activeFileType === FileType.AUTO }">
@@ -157,24 +157,25 @@ onMounted(() => {
                     <button class="delete-btn" @click="handleDeleteAutoExt(item)">x</button>
                 </li>
             </ul>
-            <div class="input-ext">
-                <input type="text" v-model="autoExt" placeholder="请输入后缀,如jpg"/>
+            <div class="input-ext input-div">
+                <input type="text" v-model="autoExt" placeholder="请输入后缀,如jpg" />
                 <button @click="handleAddAutoExt">添加后缀</button>
             </div>
-            <div>
+            <div class="input-div">
                 <button @click="handleSearch">查找</button>
             </div>
         </header>
-        <section>
-            <ul>
+        <section class="file-list">
+            <ul v-if="filePathList.length">
                 <li v-for="item of filePathList" :key="item">
                     <span>{{ item }}</span>
-                    <div>
+                    <div class="btn-group">
                         <button class="btn delete-btn " @click="handleOpenWaitMessage">删除</button>
                         <button class="btn go-to-btn" @click="handleGoTo(item)">跳转</button>
                     </div>
                 </li>
             </ul>
+            <div class="empty">文件为空</div>
         </section>
     </div>
 </template>
@@ -216,7 +217,7 @@ onMounted(() => {
                 color: #606266;
                 position: relative;
 
-                @media screen and (max-width: 500px) {
+                @media screen and (max-width: @--first-change-width) {
                     min-width: 80px;
                     flex: 1;
                 }
@@ -264,7 +265,7 @@ onMounted(() => {
         }
 
         .input-ext {
-            @media screen and (max-width: 500px) {
+            @media screen and (max-width: @--first-change-width) {
                 flex-direction: column;
 
                 input {
@@ -273,7 +274,7 @@ onMounted(() => {
             }
         }
 
-        div {
+        .input-div {
             margin-bottom: 16px;
             display: flex;
             gap: 12px;
@@ -301,7 +302,7 @@ onMounted(() => {
                 cursor: pointer;
                 transition: all 0.3s;
 
-                @media screen and (max-width: 500px) {
+                @media screen and (max-width: @--first-change-width) {
                     flex: 1;
                 }
 
@@ -316,7 +317,7 @@ onMounted(() => {
         }
     }
 
-    section {
+    .file-list {
         background-color: white;
         border-radius: 8px;
         padding: 20px;
@@ -330,8 +331,9 @@ onMounted(() => {
                 transition: all 0.3s;
                 display: flex;
                 justify-content: space-between;
+                align-items: center;
 
-                @media screen and (max-width: 500px) {
+                @media screen and (max-width: @--first-change-width) {
                     flex-direction: column;
                 }
 
@@ -353,12 +355,16 @@ onMounted(() => {
                     }
                 }
 
-                div {
+                .btn-group {
                     display: flex;
                     gap: 10px;
                     margin-left: 10px;
+                    min-width: 120px;
+                    width: 120px;
+                    max-height: 30px;
 
-                    @media screen and (max-width: 500px) {
+                    @media screen and (max-width: @--first-change-width) {
+                        width: 100%;
                         flex-wrap: wrap;
                         margin-top: 10px;
                         margin-left: 0px;
@@ -379,7 +385,7 @@ onMounted(() => {
                             transform: translateX(0) scale(1.05);
                         }
 
-                        @media screen and (max-width: 500px) {
+                        @media screen and (max-width: @--first-change-width) {
                             flex: 1;
                             transform: translateX(0);
                         }
@@ -402,6 +408,11 @@ onMounted(() => {
                     }
                 }
             }
+        }
+        .empty{
+            text-align: center;
+            color: #606f7b;
+            font-size: 16px;
         }
     }
 }

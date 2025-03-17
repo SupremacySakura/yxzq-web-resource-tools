@@ -48,7 +48,7 @@ const handleClick = (path: string) => {
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     padding: 20px 0;
 
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: @--first-change-width) {
         width: 30%;
         min-width: 30%;
         padding: 15px 0;
@@ -71,7 +71,7 @@ const handleClick = (path: string) => {
         align-items: center;
         gap: 15px;
 
-        @media screen and (max-width: 500px) {
+        @media screen and (max-width: @--first-change-width) {
             gap: 10px;
         }
 
@@ -88,7 +88,7 @@ const handleClick = (path: string) => {
             transition: all 0.3s ease;
             font-size: 0.95rem;
 
-            @media screen and (max-width: 500px) {
+            @media screen and (max-width: @--first-change-width) {
                 width: 80%;
             }
 

@@ -71,7 +71,7 @@ onMounted(() => {
         <ul class="img-list">
             <li v-for="(item, index) of imgList" :key="item" class="img-item">
                 <div class="img-item-img">
-                    <el-image :src="item" alt="" :fit="fit" style="width: 95%; height: 95%;"/>
+                    <el-image :src="item" alt="" :fit="fit" style="width: 95%; height: 95%;" />
                 </div>
                 <div class="img-item-control">
                     <button @click="openPreview(index)">预览</button>
@@ -79,6 +79,7 @@ onMounted(() => {
                 </div>
             </li>
         </ul>
+        <div v-if="!imgList.length" class="no-img">暂无图片资源</div>
         <el-image-viewer v-if="showPreview" :url-list="imgList" show-progress :initial-index="initIndex"
             @close="showPreview = false" />
     </div>
@@ -90,10 +91,18 @@ onMounted(() => {
     padding: 32px;
     background-color: #f5f7fa;
     overflow-y: auto;
+
+    @media screen and (max-width: @--first-change-width) {
+        padding: 16px;
+    }
     .img-list {
         display: flex;
         flex-wrap: wrap;
         gap: 16px;
+
+        @media screen and (max-width: @--first-change-width) {
+            gap: 12px;
+        }
 
         .img-item {
             width: 280px;
@@ -103,6 +112,10 @@ onMounted(() => {
             transition: transform 0.3s ease;
             background-color: #fff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+            @media screen and (max-width: @--first-change-width) {
+                width: 100%;
+            }
 
             &:hover {
                 transform: translateY(-4px);
@@ -117,6 +130,10 @@ onMounted(() => {
                 align-items: center;
                 justify-content: center;
                 background-color: #f5f7fa;
+
+                @media screen and (max-width: @--first-change-width) {
+                    height: 160px;
+                }
             }
 
             .img-item-control {
@@ -124,6 +141,11 @@ onMounted(() => {
                 text-align: center;
                 display: flex;
                 gap: 10px;
+
+                @media screen and (max-width: @--first-change-width) {
+                    padding: 10px;
+                    gap: 8px;
+                }
 
                 button {
                     flex: 1;
@@ -135,6 +157,11 @@ onMounted(() => {
                     cursor: pointer;
                     transition: background-color 0.3s ease;
 
+                    @media screen and (max-width: @--first-change-width) {
+                        padding: 8px 12px;
+                        font-size: 14px;
+                    }
+
                     &:hover {
                         background-color: #66b1ff;
                     }
@@ -142,33 +169,11 @@ onMounted(() => {
             }
         }
     }
-}
-
-@media screen and (max-width: 500px) {
-    .container {
-        padding: 16px;
-
-        .img-list {
-            gap: 12px;
-
-            .img-item {
-                width: 100%;
-
-                .img-item-img {
-                    height: 160px;
-                }
-
-                .img-item-control {
-                    padding: 10px;
-                    gap: 8px;
-
-                    button {
-                        padding: 8px 12px;
-                        font-size: 14px;
-                    }
-                }
-            }
-        }
+    .no-img{
+        text-align: center;
+        color: #606f7b;
+        font-size: 16px;
+        margin-top: 20px;
     }
 }
 </style>
