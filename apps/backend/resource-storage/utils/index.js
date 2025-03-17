@@ -96,7 +96,7 @@ function getServerBase(ctx) {
  * // 返回: 'http://localhost:3000/resource/test.jpg'
  */
 function convertLocalPathToUrl(ctx, localPath) {
-    const regex = /\/public\/([a-zA-Z0-9_\-/.]+)/
+    const regex = /\/public\/(.+)/
     const normalizedPath = localPath.replace(/\\/g, '/') // 处理 Windows 反斜杠
     const match = normalizedPath.match(regex)
     if (!match) return localPath // 非目标路径直接返回

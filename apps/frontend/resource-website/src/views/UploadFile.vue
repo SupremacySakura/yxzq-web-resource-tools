@@ -2,7 +2,7 @@
 import yxzqUtils from '@yxzq-web-resource-tools/yxzq-utils-browser'
 import { onMounted, ref } from 'vue'
 import { ElMessage, ElLoading } from 'element-plus'
-const filesStructure = ref<any>()
+const filesStructure = ref<any[]>([])
 /**
  * 上传文件对象引用
  * @type {Ref<File | undefined>}
@@ -123,6 +123,7 @@ onMounted(() => {
                         + subItem.name : "📄" + subItem.name }}</div>
                 </div>
             </div>
+            <div class="empty" v-if="!filesStructure.length">无任何文件</div>
         </section>
         <section class="upload-file-section">
             <div class="upload-file">
@@ -132,11 +133,11 @@ onMounted(() => {
             </div>
             <div class="upload-file">
                 <span>文件夹名</span>
-                <input type="text" v-model="uploadConfig.folderName" placeholder="默认值为default,请勿使用中文">
+                <input type="text" v-model="uploadConfig.folderName" placeholder="默认值为default">
             </div>
             <div class="upload-file">
                 <span>文件名</span>
-                <input type="text" v-model="uploadConfig.fileName" placeholder="默认值为defaul_name,请勿使用中文">
+                <input type="text" v-model="uploadConfig.fileName" placeholder="默认值为defaul_name">
             </div>
             <div class="upload-file">
                 <span>请求地址</span>
@@ -227,6 +228,12 @@ onMounted(() => {
                     }
                 }
             }
+        }
+        .empty {
+            text-align: center;
+            color: #606266;
+            font-size: 14px;
+            margin-top: 10px;
         }
     }
 

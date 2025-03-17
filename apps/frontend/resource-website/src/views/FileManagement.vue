@@ -357,7 +357,7 @@ onMounted(() => {
 
                 .btn-group {
                     display: flex;
-                    gap: 10px;
+                    gap: 12px;
                     margin-left: 10px;
                     min-width: 120px;
                     width: 120px;
