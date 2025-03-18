@@ -30,7 +30,7 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   gap: 24px;
-
+  cursor: default;
   @media screen and (max-width: @--first-change-width) {
     padding: 16px;
     gap: 16px;

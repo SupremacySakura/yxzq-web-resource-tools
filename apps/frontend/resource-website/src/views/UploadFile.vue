@@ -173,7 +173,7 @@ onMounted(() => {
     .files-structure {
         max-height: 40vh;
         overflow-y: auto;
-
+        cursor: default;
         .title {
             text-align: center;
             margin-bottom: 5px;

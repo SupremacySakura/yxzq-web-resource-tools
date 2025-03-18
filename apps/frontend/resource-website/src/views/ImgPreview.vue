@@ -56,6 +56,10 @@ const openPreview = (index: number) => {
     initIndex.value = index
     showPreview.value = true
 }
+const getFileNameFromURL = (url: string) => {
+    const urlArr = url.split('/')
+    return urlArr[urlArr.length - 1]
+}
 onMounted(() => {
     yxzqUtils.getFilePath({
         url: import.meta.env.MYAPP_BASE_URL,
@@ -73,6 +77,7 @@ onMounted(() => {
                 <div class="img-item-img">
                     <el-image :src="item" alt="" :fit="fit" style="width: 95%; height: 95%;" />
                 </div>
+                <div class="img-item-name">{{getFileNameFromURL(item)}}</div>
                 <div class="img-item-control">
                     <button @click="openPreview(index)">预览</button>
                     <button @click="copyToClipboard(item)">复制链接</button>
@@ -135,7 +140,11 @@ onMounted(() => {
                     height: 160px;
                 }
             }
-
+            .img-item-name {
+                text-align: center;
+                height: 24px;
+                line-height: 24px;
+            }
             .img-item-control {
                 padding: 12px;
                 text-align: center;
