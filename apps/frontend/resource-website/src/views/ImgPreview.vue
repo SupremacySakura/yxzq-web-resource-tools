@@ -77,7 +77,9 @@ onMounted(() => {
                 <div class="img-item-img">
                     <el-image :src="item" alt="" :fit="fit" style="width: 95%; height: 95%;" />
                 </div>
-                <div class="img-item-name">{{getFileNameFromURL(item)}}</div>
+                <div class="img-item-info">
+                    <span class="img-item-info-name">{{ getFileNameFromURL(item) }}</span>
+                </div>
                 <div class="img-item-control">
                     <button @click="openPreview(index)">预览</button>
                     <button @click="copyToClipboard(item)">复制链接</button>
@@ -100,6 +102,7 @@ onMounted(() => {
     @media screen and (max-width: @--first-change-width) {
         padding: 16px;
     }
+
     .img-list {
         display: flex;
         flex-wrap: wrap;
@@ -140,11 +143,24 @@ onMounted(() => {
                     height: 160px;
                 }
             }
-            .img-item-name {
-                text-align: center;
-                height: 24px;
-                line-height: 24px;
+
+            .img-item-info {
+                height: 50px;
+                padding: 5px;
+                margin-bottom: 10px;
+                word-break: break-all;
+
+                .img-item-info-name {
+                    display: block;
+                    width: 100%;
+                    height: 20px;
+                    overflow: hidden;
+                    text-align: center;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
             }
+
             .img-item-control {
                 padding: 12px;
                 text-align: center;
@@ -178,7 +194,8 @@ onMounted(() => {
             }
         }
     }
-    .no-img{
+
+    .no-img {
         text-align: center;
         color: #606f7b;
         font-size: 16px;
