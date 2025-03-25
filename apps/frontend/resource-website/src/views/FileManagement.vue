@@ -151,6 +151,7 @@ const handleDeleteFile = (filePath: string) => {
         if(res.code === 200){
             ElMessage.success('删除成功')
             handleSearch()
+            return
         }
        ElMessage.error('删除失败')
     }).catch((e) => {

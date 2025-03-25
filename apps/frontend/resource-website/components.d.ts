@@ -8,6 +8,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    ElButton: typeof import('element-plus/es')['ElButton']
     ElImage: typeof import('element-plus/es')['ElImage']
     ElImageViewer: typeof import('element-plus/es')['ElImageViewer']
     ElPopconfirm: typeof import('element-plus/es')['ElPopconfirm']

@@ -1,6 +1,4 @@
 const fileOption = {
     prefix: 'resource',
 }
-module.exports = {
-    fileOption
-}
+module.exports = fileOption

@@ -39,5 +39,5 @@ app.use(mount('/', indexRouter.routes())).use(indexRouter.allowedMethods())
 //监听端口
 app.listen(3100, () => {
   console.log('server is running at http://localhost:3100')
-  console.log('image is running at http://loacalhost:3100/resource')
+  console.log(`resource is running at http://localhost:3100/${fileOption.prefix}`)
 })
