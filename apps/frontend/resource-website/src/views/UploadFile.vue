@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import yxzqUtils from '@yxzq-web-resource-tools/yxzq-utils-browser'
+import type { UploadConfig} from '@yxzq-web-resource-tools/yxzq-utils-browser'
 import { onMounted, ref } from 'vue'
 import { ElMessage, ElLoading } from 'element-plus'
 const filesStructure = ref<any[]>([])
@@ -8,27 +9,6 @@ const filesStructure = ref<any[]>([])
  * @type {Ref<File | undefined>}
  */
 const uploadFile = ref<File>()
-/**
- * 是否使用日期作为文件名的类型定义
- * @type {"no" | "yes"}
- */
-type useDateType = "no" | "yes"
-/**
- * 上传配置接口
- * @interface UploadConfig
- * @property {string} [folderName] - 上传文件夹名称
- * @property {string} [fileName] - 上传文件名
- * @property {string} [url] - 上传请求地址
- * @property {useDateType} [useDate] - 是否使用日期作为文件名
- * @property {string} [ext] - 文件后缀
- */
-interface UploadConfig {
-    folderName?: string
-    fileName?: string
-    url?: string
-    useDate?: useDateType
-    ext?: string
-}
 /**
  * 上传配置对象引用
  * @type {Ref<UploadConfig>}
