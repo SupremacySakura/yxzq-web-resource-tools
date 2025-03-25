@@ -1,5 +1,11 @@
 # @yxzq-web-resource-tools/yxzq-utils-browser
 
+## 1.3.0
+
+### Minor Changes
+
+- 新增删除功能
+
 ## 1.2.0
 
 ### Minor Changes

@@ -35,6 +35,15 @@ interface GetFilesStructureResult {
     code: number
     err?: any
 }
+interface DeleteFileConfig {
+    filePath: string
+    url?: string
+}
+interface DeleteFileResult {
+    message: string
+    code: number
+    err?: any
+}
 export {
     UploadConfig,
     UploadResult,
@@ -42,5 +51,7 @@ export {
     GetFilePathResult,
     fileStructure,
     GetFilesStructureConfig,
-    GetFilesStructureResult
+    GetFilesStructureResult,
+    DeleteFileConfig,
+    DeleteFileResult,
 }

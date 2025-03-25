@@ -18,6 +18,7 @@
   - [uploadResource](#uploadresource)
   - [getFilePath](#getfilepath)
   - [getFilesStructure](#getfilesstructure)
+  - [deleteFile](#deletedfile)
 - [其他](#其他)
   - [后端工具](#后端工具)
 
@@ -357,7 +358,7 @@ getFilesStructure([config]: GetFilesStructureConfig)
 
 #### 参数
 - `config`: 配置对象，用于自定义请求行为
-  - `url`: 请求的目标 URL，默认值为 `'- `config`: 配置对象，用于自定义请求行为
+  - `url`: 请求的目标 URL，默认值为 `'http://localhost:3100'`
 
 #### 返回值
 - `Promise<GetFilesStructureResult>`: 返回一个 Promise，解析为包含获取结果的对象：
@@ -371,6 +372,33 @@ getFilesStructure([config]: GetFilesStructureConfig)
 ```typescript
 yxzqUtils.getFilesStructure().then(res => {
     console.log(res)
+})
+```
+
+### deleteFile
+
+异步删除文件。（此工具需配合作者其他工具 `resource-storage` 使用）
+
+```typescript
+deleteFile([config]: DeleteFileConfig)
+```
+
+#### 参数
+- `config`: 配置对象，用于自定义请求行为
+  - `url`: 请求的目标 URL，默认值为 `'http://localhost:3100'`
+  - `filePath`: 文件路径，默认值为 `'default'`
+
+#### 返回值
+- `Promise<DeleteFileResult>`: 返回一个 Promise，解析为包含获取结果的对象：
+  - `message`: 描述信息
+  - `code`: HTTP 状态码或错误代码
+  - `err`: 错误信息（如果有）
+
+#### 例子
+
+```typescript
+yxzqUtils.deleteFile({filePath:'default'}).then(res => {
+   console.log(res)
 })
 ```
 

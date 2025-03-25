@@ -1,5 +1,5 @@
 import { checkIfInstanceOf } from "../utils/index"
-import type { UploadConfig, UploadResult, GetFilePathConfig, GetFilePathResult, fileStructure, GetFilesStructureConfig, GetFilesStructureResult } from "./type.ts"
+import type { UploadConfig, UploadResult, GetFilePathConfig, GetFilePathResult, fileStructure, GetFilesStructureConfig, GetFilesStructureResult, DeleteFileConfig, DeleteFileResult } from "./type.ts"
 /**
  * 异步上传文件到指定URL。（此工具需配合作者其他工具resource-storage使用）
  *
@@ -159,8 +159,49 @@ const getFilesStructure = async (config: GetFilesStructureConfig = {}): Promise<
         }
     }
 }
+/**
+ * 异步删除指定路径的文件。（此工具需配合作者其他工具resource-storage使用）
+ *
+ * @async
+ * @param {DeleteFileConfig} [config={ filePath: '' }] - 配置对象，用于自定义删除行为
+ * @param {string} config.filePath - 要删除的文件的完整URL路径
+ * @param {string} [config.url='http://localhost:3100'] - 删除请求的目标URL。默认值为'http://localhost:3100'
+ *
+ * @returns {Promise<DeleteFileResult>} 返回一个Promise，解析为包含删除结果的对象：
+ * - `message`: 描述信息
+ * - `code`: HTTP状态码（200表示成功，400表示失败）
+ * - `err`: 错误信息（如果有）
+ *
+ * @throws {Error} 如果在请求过程中发生网络错误或其他异常
+ */
+const deleteFile = async (config: DeleteFileConfig = { filePath: '' }): Promise<DeleteFileResult> => {
+    const {
+        filePath,
+        url = 'http://localhost:3100',
+    } = config
+    const wholeUrl = url + '/deleteFile'
+    try {
+        const response = await fetch(wholeUrl, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                filePath
+            })
+        })
+        return response.json()
+    } catch (err) {
+        return {
+            message: 'An error occurred during the request',
+            code: 400,
+            err: err,
+        }
+    }
+}
 export {
     uploadResource,
     getFilePath,
     getFilesStructure,
+    deleteFile,
 }

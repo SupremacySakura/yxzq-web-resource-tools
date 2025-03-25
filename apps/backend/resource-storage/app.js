@@ -7,6 +7,7 @@ const cors = require('koa2-cors')
 const corsOption = require('./config/cors.config')
 const { koaBody } = require('koa-body')
 const { showRequest } = require('./middlewares/index')
+const fileOption = require('./config/file.config.js')
 //导入其他中间件
 const path = require('path')
 //导入路由
@@ -29,9 +30,10 @@ app.use(cors(corsOption))
 //请求处理
 app.use(koaBody({
   json: true,
+  parsedMethods: ['POST', 'PUT', 'GET', 'DELETE'],
 }))
 //挂载静态资源
-app.use(mount('/resource', koaStatic(path.resolve(__dirname, './public'))))
+app.use(mount(`/${fileOption.prefix}`, koaStatic(path.resolve(__dirname, './public'))))
 //挂载路由
 app.use(mount('/', indexRouter.routes())).use(indexRouter.allowedMethods())
 //监听端口

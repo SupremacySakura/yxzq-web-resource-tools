@@ -2,17 +2,17 @@
 import yxzqUtils from '@yxzq-web-resource-tools/yxzq-utils-browser'
 import { ref, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
-/**
- * 显示功能开发中的提示消息
- * @description 使用 Element Plus 的 Message 组件显示警告提示
- * @returns {void}
- */
-const handleOpenWaitMessage = () => {
-    ElMessage({
-        message: '功能开发中，敬请期待',
-        type: 'warning',
-    })
-}
+// /**
+//  * 显示功能开发中的提示消息
+//  * @description 使用 Element Plus 的 Message 组件显示警告提示
+//  * @returns {void}
+//  */
+// const handleOpenWaitMessage = () => {
+//     ElMessage({
+//         message: '功能开发中，敬请期待',
+//         type: 'warning',
+//     })
+// }
 /**
  * 文件类型枚举
  * @enum {string}
@@ -136,6 +136,27 @@ const filePathList = ref<string[]>([])
 const handleGoTo = (path: string) => {
     window.open(path)
 }
+/**
+ * 删除指定路径的文件
+ * @description 调用 yxzqUtils.deleteFile 删除文件，删除成功后刷新文件列表
+ * @param {string} filePath - 要删除的文件的完整URL路径
+ * @returns {Promise<void>} 返回一个 Promise，删除成功后刷新文件列表
+ * @throws {Error} 删除失败时会被 Promise catch 捕获
+ */
+const handleDeleteFile = (filePath: string) => {
+    yxzqUtils.deleteFile({
+        url: import.meta.env.MYAPP_BASE_URL,
+        filePath: filePath
+    }).then((res) => {
+        if(res.code === 200){
+            ElMessage.success('删除成功')
+            handleSearch()
+        }
+       ElMessage.error('删除失败')
+    }).catch((e) => {
+        ElMessage.error(`删除失败：${e}`)
+    })
+}
 //初始化
 onMounted(() => {
     handleSearch()
@@ -170,7 +191,11 @@ onMounted(() => {
                 <li v-for="item of filePathList" :key="item">
                     <span>{{ item }}</span>
                     <div class="btn-group">
-                        <button class="btn delete-btn " @click="handleOpenWaitMessage">删除</button>
+                        <el-popconfirm title="你确定删除此资源吗？该行为无法撤回。" @confirm="handleDeleteFile(item)">
+                            <template #reference>
+                                <button class="btn delete-btn ">删除</button>
+                            </template>
+                        </el-popconfirm>
                         <button class="btn go-to-btn" @click="handleGoTo(item)">跳转</button>
                     </div>
                 </li>
@@ -409,7 +434,8 @@ onMounted(() => {
                 }
             }
         }
-        .empty{
+
+        .empty {
             text-align: center;
             color: #606f7b;
             font-size: 16px;

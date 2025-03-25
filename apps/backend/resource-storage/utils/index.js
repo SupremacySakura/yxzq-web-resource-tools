@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-
+const fileOption = require('../config/file.config.js')
 // 判断文件是否是图片文件，支持的扩展名可以根据需求添加
 const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg']
 
@@ -95,14 +95,14 @@ function getServerBase(ctx) {
  * convertLocalPathToUrl(ctx, '/usr/local/public/resource/test.jpg')
  * // 返回: 'http://localhost:3000/resource/test.jpg'
  */
-function convertLocalPathToUrl(ctx, localPath) {
+function convertLocalPathToUrl(ctx, localPath, prefix = fileOption.prefix || 'resource') {
     const regex = /\/public\/(.+)/
     const normalizedPath = localPath.replace(/\\/g, '/') // 处理 Windows 反斜杠
     const match = normalizedPath.match(regex)
     if (!match) return localPath // 非目标路径直接返回
 
     const baseUrl = getServerBase(ctx)
-    return `${baseUrl}/resource/${match[1]}`
+    return `${baseUrl}/${prefix}/${match[1]}`
 }
 /**
  * 递归读取目录结构
@@ -123,7 +123,7 @@ function convertLocalPathToUrl(ctx, localPath) {
  * //   { type: 'file', name: 'index.html' }
  * // ]
  */
-function readFilesStructure(dirPath){
+function readFilesStructure(dirPath) {
     let res = []
     const files = fs.readdirSync(dirPath)
     files.forEach((file) => {
@@ -144,10 +144,30 @@ function readFilesStructure(dirPath){
     })
     return res
 }
+/**
+ * 获取资源的主路径
+ * 
+ * @param {string} dirPath - 完整的资源URL或路径
+ * @param {string} [prefix='resource'] - URL中的资源前缀
+ * @returns {string} 返回资源的主路径（去除域名和前缀后的路径）
+ * 
+ * @example
+ * getMainFilePath('http://localhost:3000/resource/test.jpg')
+ * // 返回: '/test.jpg'
+ * 
+ * getMainFilePath('http://localhost:3000/static/test.jpg', 'static')
+ * // 返回: '/test.jpg'
+ */
+function getMainFilePath(dirPath, prefix = fileOption.prefix || 'resource') {
+    const regex = new RegExp(`/${prefix}/(.+)`)
+    const match = dirPath.match(regex)
+    return match ? `/${match[1]}` : dirPath
+}
 module.exports = {
     readFilesInDirectory,
     getServerBase,
     convertLocalPathToUrl,
     readFilesStructure,
+    getMainFilePath,
 }
 
