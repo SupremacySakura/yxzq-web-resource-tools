@@ -1,15 +1,11 @@
-import { uploadResource, getFilePath,getFilesStructure } from './resource-storage-utils/index'
-import { checkIfInstanceOf, debouncing, throtting, addCacheToAxios, addRetryToAxios } from './utils/index'
-export { uploadResource, getFilePath, getFilesStructure }
-export { checkIfInstanceOf, debouncing, throtting, addCacheToAxios, addRetryToAxios }
+import * as resourceStorageUtils from './resource-storage-utils/index'
+import * as utils from './utils/index'
+export * from './resource-storage-utils/index'
+export * from './utils/index'
+export type * from './resource-storage-utils/type'
+export type * from './utils/type'
 const yxzqUtils = {
-    uploadResource,
-    getFilePath,
-    getFilesStructure,
-    checkIfInstanceOf,
-    debouncing,
-    throtting,
-    addCacheToAxios,
-    addRetryToAxios,
+    ...resourceStorageUtils,
+    ...utils,
 }
 export default yxzqUtils

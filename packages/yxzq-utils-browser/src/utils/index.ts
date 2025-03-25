@@ -1,5 +1,5 @@
 import { AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig, AxiosError } from 'axios'
-import { CacheOptions, RetryOptions } from './type'
+import { CacheOptions, RetryOptions,Implementation,OverloadedFunction } from './type'
 /**
  * 检查给定的对象是否是指定构造函数的实例。
  *
@@ -292,10 +292,70 @@ const addRetryToAxios = (instance: AxiosInstance, options: RetryOptions = {}): A
     )
     return instance
 }
+/**
+ * 创建一个支持函数重载的函数工厂
+ * @description 该函数允许根据参数类型创建不同的函数实现，实现类似其他语言中的函数重载功能
+ * @returns {OverloadedFunction} 返回一个可重载的函数对象，该对象包含 addImplementation 方法用于添加新的实现
+ * @example
+ * const calc = createOverloader()
+ * 
+ * // 添加字符串拼接实现
+ * calc.addImplementation('string', 'string', (a, b) => a + b)
+ * 
+ * // 添加数字相乘实现
+ * calc.addImplementation('number', 'number', (a, b) => a * b)
+ * 
+ * // 添加无参数实现
+ * calc.addImplementation(() => console.log('no args'))
+ * 
+ * calc('hello', 'world') // 'helloworld'
+ * calc(2, 3) // 6
+ * calc() // 'no args'
+ */
+function createOverloader(): OverloadedFunction {
+    const implementations = new Map<string, Implementation>()
+
+    /**
+     * 根据传入参数类型调用对应的函数实现
+     * @param {...any} args - 任意数量和类型的参数
+     * @throws {Error} 当找不到匹配的函数实现时抛出错误
+     * @returns {any} 返回对应实现的执行结果
+     */
+    function overloadedFunction(...args: any[]): any {
+        const argTypes: string[] = args.map(arg => typeof arg)
+        const signature: string = argTypes.join(',')
+        const implementation = implementations.get(signature)
+
+        if (!implementation) {
+            throw new Error(`No implementation found for signature [${signature}]`)
+        }
+
+        return implementation(...args)
+    }
+
+    /**
+     * 为函数添加新的实现
+     * @param {...(string | Implementation)} args - 参数类型字符串列表，最后一个参数为函数实现
+     * @throws {TypeError} 当最后一个参数不是函数时抛出错误
+     */
+    overloadedFunction.addImplementation = function (...args: [...string[], Implementation]): void {
+        const implementation = args.pop() as Implementation
+
+        if (typeof implementation !== 'function') {
+            throw new TypeError('Implementation must be a function')
+        }
+
+        const typeSignature = args.join(',')
+        implementations.set(typeSignature, implementation)
+    }
+
+    return overloadedFunction
+}
 export {
     checkIfInstanceOf,
     debouncing,
     throtting,
     addCacheToAxios,
     addRetryToAxios,
+    createOverloader,
 }

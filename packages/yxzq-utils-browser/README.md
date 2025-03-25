@@ -12,6 +12,7 @@
   - [throtting](#throtting)
   - [addCacheToAxios](#addcachetoaxios)
   - [addRetryToAxios](#addretrytoaxios)
+  - [createOverloader](#createoverloader)
 - [特别工具](#特别工具)
   - [搭配工具](#搭配工具)
   - [uploadResource](#uploadresource)
@@ -225,7 +226,46 @@ api.get('/data', {
   }
 })
 ```
+
+### createOverloader
+
+创建一个支持函数重载的函数工厂，允许根据参数类型创建不同的函数实现。
+
+```typescript
+createOverloader(): OverloadedFunction
+```
+
+#### 参数
+
+无
+
+#### 返回值
+
+- `OverloadedFunction :`:返回一个可重载的函数对象，该对象包含：
+
+  - 主函数：根据传入参数类型调用对应的实现
   
+  - `addImplementation` 方法：用于添加新的函数实现
+
+#### 例子
+
+```typescript
+const calc = yxzqUtils.createOverloader()
+
+// 添加字符串拼接实现
+calc.addImplementation('string', 'string', (a, b) => a + b)
+
+// 添加数字相乘实现
+calc.addImplementation('number', 'number', (a, b) => a * b)
+
+// 添加无参数实现
+calc.addImplementation(() => console.log('no args'))
+
+calc('hello', 'world') // => 'helloworld'
+calc(2, 3)            // => 6
+calc()                // => 'no args'
+```
+
 ## 特别工具
 
 ### 搭配工具

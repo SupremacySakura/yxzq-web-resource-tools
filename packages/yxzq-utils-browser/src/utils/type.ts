@@ -38,12 +38,21 @@ interface CacheOptions {
     maxCacheSize?: number
 }
 interface RetryOptions {
-    maxRetries?: number;
-    retryCondition?: (error: AxiosError) => boolean | Promise<boolean>;
-    getDelay?: (retryCount: number) => number;
+    maxRetries?: number
+    retryCondition?: (error: AxiosError) => boolean | Promise<boolean>
+    getDelay?: (retryCount: number) => number
 }
+// 定义函数实现的类型
+type Implementation = (...args: any[]) => any
 
+// 定义重载函数的类型
+interface OverloadedFunction {
+    (...args: any[]): any
+    addImplementation: (...args: [...string[], Implementation]) => void
+}
 export {
     CacheOptions,
     RetryOptions,
+    Implementation,
+    OverloadedFunction,
 }
