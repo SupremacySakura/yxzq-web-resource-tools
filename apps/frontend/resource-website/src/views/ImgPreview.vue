@@ -153,7 +153,7 @@ onMounted(() => {
                 .img-item-info-name {
                     display: block;
                     width: 100%;
-                    height: 20px;
+                    height: 25px;
                     overflow: hidden;
                     text-align: center;
                     text-overflow: ellipsis;

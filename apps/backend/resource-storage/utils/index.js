@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const fileOption = require('../config/file.config.js')
 // 判断文件是否是图片文件，支持的扩展名可以根据需求添加
-const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg']
+const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg', 'ico']
 
 /**
  * 递归读取指定目录下的文件

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import yxzqUtils from '@yxzq-web-resource-tools/yxzq-utils-browser'
-import type { UploadConfig} from '@yxzq-web-resource-tools/yxzq-utils-browser'
+import type { UploadConfig } from '@yxzq-web-resource-tools/yxzq-utils-browser'
 import { onMounted, ref } from 'vue'
 import { ElMessage, ElLoading } from 'element-plus'
 const filesStructure = ref<any[]>([])
@@ -20,6 +20,13 @@ const uploadConfig = ref<UploadConfig>({
     useDate: 'no',
     ext: ''
 })
+/**
+ * 一键选中文件夹
+ * @param name 文件名
+ */
+const handleClickFolder = (name: string) => {
+    uploadConfig.value.folderName = name
+}
 /**
  * 处理文件选择变更
  * @param {Event} e - 文件选择事件对象
@@ -59,7 +66,7 @@ const handleUpload = () => {
         yxzqUtils.uploadResource(uploadFile.value, uploadConfig.value).then((res) => {
             ElMessage.success(`${res.message}地址为${res.filePath}`)
             uploadFilesStructure()
-        }).finally(()=>{
+        }).finally(() => {
             loadingInstance.close()
         })
     } catch (e) {
@@ -96,7 +103,7 @@ onMounted(() => {
     <div class="container">
         <section class="files-structure">
             <h2 class="title">仓库文件</h2>
-            <div v-for="item of filesStructure" :key="item" class="file-folder">
+            <div v-for="item of filesStructure" :key="item" class="file-folder" @click="handleClickFolder(item.name)">
                 <span>{{ item.type === 'folder' ? "📁" + item.name : "📄" + item.name }}</span>
                 <div class="file-list">
                     <div v-for="subItem of item.children" :key="subItem">{{ subItem.type === 'folder' ? "📁"
@@ -154,6 +161,7 @@ onMounted(() => {
         max-height: 40vh;
         overflow-y: auto;
         cursor: default;
+
         .title {
             text-align: center;
             margin-bottom: 5px;
@@ -209,6 +217,7 @@ onMounted(() => {
                 }
             }
         }
+
         .empty {
             text-align: center;
             color: #606266;
