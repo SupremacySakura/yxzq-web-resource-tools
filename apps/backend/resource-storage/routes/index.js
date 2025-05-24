@@ -3,7 +3,8 @@ const Router = require('@koa/router')
 const path = require('path')
 const fs = require('fs')
 const { koaBody } = require('koa-body')
-const { readFilesInDirectory, convertLocalPathToUrl, readFilesStructure,getMainFilePath } = require('../utils/index.js')
+const { readFilesInDirectory, convertLocalPathToUrl, readFilesStructure, getMainFilePath } = require('../utils/index.js')
+const { prefix } = require('../config/file.config.js')
 //创建路由实例
 const router = new Router()
 const tempDir = path.join(__dirname, '.././temp')
@@ -54,7 +55,7 @@ router.post('/upload', koaBody({
     fs.renameSync(oldPath, newPath) // 将文件移动到指定目录
     ctx.body = {
       message: 'File uploaded successfully!',
-      filePath: `http://${host}/image/${folderName}/${path.basename(newPath)}`,
+      filePath: `http://${host}/${prefix}/${folderName}/${path.basename(newPath)}`,
       code: 200,
     }
   } catch (error) {
@@ -95,7 +96,7 @@ router.get('/fileStructure', async (ctx) => {
 router.delete('/deleteFile', async (ctx) => {
   const { filePath = '' } = ctx.request.body
   const mainPath = getMainFilePath(filePath)
-  if(!filePath){
+  if (!filePath) {
     ctx.body = {
       message: 'File path does not exist!',
       code: 500,
